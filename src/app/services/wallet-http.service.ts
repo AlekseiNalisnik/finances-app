@@ -5,7 +5,7 @@ import { Wallet } from '../interfaces/wallet-interface';
 
 @Injectable()
 export class WalletHttpService {
-  private readonly walletUrl = '/api/wallets';
+  private readonly walletUrl = '/api/finances/wallets';
 
   constructor(private http: HttpClient) { }
 

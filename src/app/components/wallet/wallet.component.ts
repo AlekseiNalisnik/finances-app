@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { WalletDataService } from 'src/app/services/wallet-data.service';
+import { WalletHttpService } from 'src/app/services/wallet-http.service';
 
 @Component({
   selector: 'app-wallet',
@@ -11,6 +12,7 @@ import { WalletDataService } from 'src/app/services/wallet-data.service';
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
   imports: [CommonModule, CdkDropList, NgFor, CdkDrag],
+  providers: [WalletDataService, WalletHttpService],
 })
 export class WalletComponent implements OnInit {
   timePeriods = [

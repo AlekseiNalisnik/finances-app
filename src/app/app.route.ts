@@ -9,5 +9,5 @@ export const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'wallets', pathMatch: 'full' },
     { path: 'wallets', component: WalletComponent, canActivate: [authGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegistrationComponent }
+    { path: 'register', component: RegistrationComponent },
 ];

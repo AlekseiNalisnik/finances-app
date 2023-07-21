@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AuthHttpService } from './auth-http.service';
+import { LoginDto, RegisterDto } from '../interfaces/auth-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +15,17 @@ export class AuthService {
     private router: Router,
   ) {}
 
-  public login(username: string, password: string): void {
-    this.authHttpService.login(username, password)
+  public login(loginDto: LoginDto): void {
+    this.authHttpService.login(loginDto)
       .subscribe((token: string) => {
         localStorage.setItem(this.TOKEN_KEY, token);
         this.router.navigate(['/']);
       });
   }
 
-  public register(username: string, email: string, password: string): void {
+  public register(registerDto: RegisterDto): void {
     this.authHttpService
-      .register(username, email, password)
+      .register(registerDto)
       .subscribe((token: string) => {
         localStorage.setItem(this.TOKEN_KEY, token);
         this.router.navigate(['/']);
