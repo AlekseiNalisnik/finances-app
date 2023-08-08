@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { WalletHttpService } from './wallet-http.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+
+import { WalletHttpService } from './wallet-http.service';
 import { Wallet } from '../interfaces/wallet-interface';
+import { WalletDialogRefData } from '../interfaces/dialog-interface';
 
 @Injectable()
 export class WalletDataService {
@@ -30,6 +32,30 @@ export class WalletDataService {
     this.walletHttpService.getWalletById(id).pipe(
       tap((wallet: Wallet) => {
         this.wallet.next(wallet);
+      }),
+    );
+  }
+
+  public createWallet(wallet: WalletDialogRefData): void {
+    this.walletHttpService.createWallet(wallet).pipe(
+      tap(({ id }) => {
+        this.wallets.next([...this.wallets.value, { id, ...wallet }]);
+      }),
+    );
+  }
+
+  public editWallet(wallet: Wallet): void {
+    this.walletHttpService.editWallet(wallet).pipe(
+      tap(() => {
+        this.wallets.next([...this.wallets.value, { ...wallet }]);
+      }),
+    );
+  }
+
+  public deleteWallet(id: string): void {
+    this.walletHttpService.deleteWallet(id).pipe(
+      tap(() => {
+        this.wallets.next([...this.wallets.value.filter(({ id: walletId }) => id !== walletId)]);
       }),
     );
   }

@@ -2,7 +2,7 @@ import { Routes } from "@angular/router";
 
 import { LoginComponent } from "./components/auth/login/login.component";
 import { RegistrationComponent } from "./components/auth/registration/registration.component";
-import { WalletComponent } from "./components/wallet/wallet.component";
+import { WalletComponent } from "./components/wallets/wallet/wallet.component";
 import { authGuard } from "./guards/auth.guard";
 
 export const APP_ROUTES: Routes = [

@@ -1,0 +1,47 @@
+@import '/src/styles/theme';
+
+:host {
+    display: block;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 450px;
+    height: 300px;
+}
+
+::ng-deep {
+    .mdc-notched-outline {
+        &__leading, &__notch, &__trailing {
+            @include purple-border;
+        }
+    }
+}
+
+.wallet-modal-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    input {
+        color: #000;
+    }
+
+    &_description {
+        width: 100%;
+
+        textarea {
+            height: 75px;
+            resize: none;
+            color: #000;
+        }
+    }
+}
+
+mat-label {
+    @include purple-color;
+}
+
+.mat-mdc-raised-button:disabled {
+    color: #666666;
+    background-color: #cccccc;
+}

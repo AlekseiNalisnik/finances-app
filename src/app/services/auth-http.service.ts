@@ -8,15 +8,19 @@ import { LoginDto, RegisterDto } from '../interfaces/auth-interface';
   providedIn: 'root'
 })
 export class AuthHttpService {
-  private readonly authPath = '/api/finances/auth';
+  private readonly authPath = '/api/finances';
   
   constructor(private http: HttpClient) {}
 
   public login(loginDto: LoginDto): Observable<string> {
-    return this.http.post(this.authPath + '/authenticate', { ...loginDto }, { responseType: 'text' });
+    return this.http.post(this.authPath + '/auth', { ...loginDto }, { responseType: 'text' });
   }
 
   public register(registerDto: RegisterDto): Observable<string> {
-    return this.http.post(this.authPath + '/register', { ...registerDto }, { responseType: 'text' });
+    return this.http.post(this.authPath + '/registration', { ...registerDto }, { responseType: 'text' });
+  }
+
+  public logout(): Observable<void> {
+    return this.http.post<void>(this.authPath + '/logout', null);
   }
 }

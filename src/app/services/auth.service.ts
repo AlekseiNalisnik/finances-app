@@ -32,9 +32,13 @@ export class AuthService {
       });
   }
 
-  public logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
-    this.router.navigate(['/login']);
+  public logout(): void {
+    this.authHttpService
+      .logout()
+      .subscribe(() => {
+        localStorage.removeItem(this.TOKEN_KEY);
+        this.router.navigate(['/login']);
+      });
   }
 
   public isLoggedIn(): boolean {

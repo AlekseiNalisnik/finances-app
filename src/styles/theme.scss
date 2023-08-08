@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+
+$green-palette: mat.define-palette(mat.$green-palette, 300);
+$purple-palette: mat.define-palette(mat.$purple-palette, 100);
+$purple-palette-400: mat.define-palette(mat.$purple-palette, 400);
+$purple-palette-900: mat.define-palette(mat.$purple-palette, 900);
+
+@mixin green-background {
+    background-color: mat.get-color-from-palette($green-palette);
+}
+
+@mixin purple-border {
+    border-color: mat.get-color-from-palette($purple-palette-400) !important;
+}
+
+@mixin purple-background {
+    background-color: mat.get-color-from-palette($purple-palette);
+}
+
+@mixin purple-color {
+    color: mat.get-color-from-palette($purple-palette-400);
+}
+
+@mixin purple-color-max {
+    color: mat.get-color-from-palette($purple-palette-900);
+}

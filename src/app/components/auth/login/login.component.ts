@@ -34,14 +34,14 @@ export class LoginComponent implements OnInit {
 
   public ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
 
   public onSubmit(): void {
     this.authService.login({
-      email: this.loginForm.get('email')!.value,
+      username: this.loginForm.get('username')!.value,
       password: this.loginForm!.get('password')!.value,
     });
   }

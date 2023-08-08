@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@import '/src/styles/theme';
 
 .authentication-card {
     width: 30%;
@@ -13,11 +13,8 @@
     min-height: 100vh;
 }
 
-$card-palette: mat.define-palette(mat.$green-palette, 300);
-$input-palette: mat.define-palette(mat.$purple-palette, 100);
-
 .mdc-card {
-    background-color: mat.get-color-from-palette($card-palette);
+    @include green-background;
 }
 
 .mat-mdc-card-title {
@@ -25,9 +22,9 @@ $input-palette: mat.define-palette(mat.$purple-palette, 100);
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: mat.get-color-from-palette($input-palette);
+    @include purple-background;
 }
 
 .mat-mdc-raised-button.mat-primary {
-    background-color: mat.get-color-from-palette($input-palette);
+    @include purple-background;
 }

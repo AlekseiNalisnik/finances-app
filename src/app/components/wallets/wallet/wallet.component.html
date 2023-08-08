@@ -1,0 +1,11 @@
+<h1>
+    Кошельки
+</h1>
+
+<div *ngFor="let wallet of walletDataService.getWalletList() | async">
+    {{wallet}}
+</div>
+
+<button mat-raised-button color="primary" (click)="createWallet()">
+    Добавить
+</button>

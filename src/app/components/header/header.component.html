@@ -1,0 +1,11 @@
+<div class="header">
+    <div class="header_logo">OwnFin</div>
+
+    <div class="header_profile">
+        <div class="header_profile_username">
+            {{ userService.getUser() | async }}
+        </div>
+
+        <img src="/assets/img/user-logo.png" alt="person_logo" class="header_profile_logo" />
+    </div>
+</div>
