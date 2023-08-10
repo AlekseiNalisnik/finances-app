@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { Wallet } from '../../interfaces/wallet-interface';
 import { WalletDialogRefData } from '../../interfaces/dialog-interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class WalletHttpService {
   private readonly walletUrl = '/api/finances/secured/wallets';
 

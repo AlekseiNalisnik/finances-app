@@ -4,9 +4,9 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 import { WalletDataService } from 'src/app/services/data/wallet-data.service';
-import { WalletHttpService } from 'src/app/services/http/wallet-http.service';
 import { WalletModalComponent } from '../wallet-modal/wallet-modal.component';
 import { WalletDialogRefData } from 'src/app/interfaces/dialog-interface';
 
@@ -15,8 +15,7 @@ import { WalletDialogRefData } from 'src/app/interfaces/dialog-interface';
   standalone: true,
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
-  imports: [CommonModule, DialogModule, MatButtonModule, FlexLayoutModule, MatIconModule],
-  providers: [WalletDataService, WalletHttpService],
+  imports: [CommonModule, DialogModule, MatButtonModule, FlexLayoutModule, MatIconModule, RouterModule],
 })
 export class WalletComponent implements OnInit {
   constructor(
@@ -36,20 +35,6 @@ export class WalletComponent implements OnInit {
     dialogRef.closed.subscribe((wallet: any) => {
       this.walletDataService.createWallet(wallet);
     });
-  }
-
-  public editWallet(): void {
-    const dialogRef = this.dialog.open(WalletModalComponent, {
-      data: { type: "edit" },
-    });
-
-    dialogRef.closed.subscribe((wallet: any) => {
-      this.walletDataService.editWallet(wallet);
-    });
-  }
-
-  public deleteWallet(id: string): void {
-    this.walletDataService.deleteWallet(id);
   }
 
   private getWallets(): void {

@@ -34,9 +34,9 @@ export class WalletModalComponent implements OnInit {
 
   public ngOnInit(): void {
     this.walletModalForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      balance: new FormControl(0, Validators.required),
-      description: new FormControl('', Validators.required),
+      name: new FormControl(this.data?.data?.name || '', Validators.required),
+      balance: new FormControl(this.data?.data?.balance || 0, Validators.required),
+      description: new FormControl(this.data?.data?.description || '', Validators.required),
     });
   }
 

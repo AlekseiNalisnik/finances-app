@@ -7,11 +7,12 @@
     fxLayoutGap="20px"
     class="wallets_list"
 >
-    <div
+    <a
         *ngFor="let wallet of walletDataService.getWalletList() | async"
         class="wallet"
         fxLayout="column"
         fxFlex="190px"
+        [routerLink]="['/wallets', wallet.id]"
     >
         <div class="wallet_balance" fxFlex="10">
             {{ wallet.balance | currency: 'RUB':'symbol-narrow' }}
@@ -25,7 +26,7 @@
         <div class="wallet_date" fxFlexOffset="20" fxFlex="10">
             Создан: {{ wallet.dateCreated | date:'longDate' }}
         </div>
-    </div>
+    </a>
 
     <button
         mat-raised-button
