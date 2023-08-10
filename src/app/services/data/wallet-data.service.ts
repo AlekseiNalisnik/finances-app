@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
-import { WalletHttpService } from './wallet-http.service';
-import { Wallet } from '../interfaces/wallet-interface';
-import { WalletDialogRefData } from '../interfaces/dialog-interface';
+import { WalletHttpService } from '../http/wallet-http.service';
+import { Wallet } from '../../interfaces/wallet-interface';
+import { WalletDialogRefData } from '../../interfaces/dialog-interface';
 
 @Injectable()
 export class WalletDataService {
@@ -25,7 +25,7 @@ export class WalletDataService {
       tap((wallets: Wallet[]) => {
         this.wallets.next(wallets);
       })
-    );
+    ).subscribe();
   }
 
   public getWalletById(id: string): void {
@@ -33,15 +33,15 @@ export class WalletDataService {
       tap((wallet: Wallet) => {
         this.wallet.next(wallet);
       }),
-    );
+    ).subscribe();
   }
 
   public createWallet(wallet: WalletDialogRefData): void {
     this.walletHttpService.createWallet(wallet).pipe(
-      tap(({ id }) => {
-        this.wallets.next([...this.wallets.value, { id, ...wallet }]);
+      tap((createdWallet) => {
+        this.wallets.next([...this.wallets.value, { ...createdWallet }]);
       }),
-    );
+    ).subscribe();
   }
 
   public editWallet(wallet: Wallet): void {
@@ -49,7 +49,7 @@ export class WalletDataService {
       tap(() => {
         this.wallets.next([...this.wallets.value, { ...wallet }]);
       }),
-    );
+    ).subscribe();
   }
 
   public deleteWallet(id: string): void {
@@ -57,6 +57,6 @@ export class WalletDataService {
       tap(() => {
         this.wallets.next([...this.wallets.value.filter(({ id: walletId }) => id !== walletId)]);
       }),
-    );
+    ).subscribe();
   }
 }

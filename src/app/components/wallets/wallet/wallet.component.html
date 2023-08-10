@@ -1,11 +1,39 @@
-<h1>
+<h1 class="wallets_title">
     Кошельки
 </h1>
 
-<div *ngFor="let wallet of walletDataService.getWalletList() | async">
-    {{wallet}}
-</div>
+<div
+    fxLayout="row wrap"
+    fxLayoutGap="20px"
+    class="wallets_list"
+>
+    <div
+        *ngFor="let wallet of walletDataService.getWalletList() | async"
+        class="wallet"
+        fxLayout="column"
+        fxFlex="190px"
+    >
+        <div class="wallet_balance" fxFlex="10">
+            {{ wallet.balance | currency: 'RUB':'symbol-narrow' }}
+        </div>
+        <div class="wallet_title" fxFlexOffset="5" fxFlex="30">
+            {{ wallet.name }}
+        </div>
+        <div class="wallet_description" fxFlex="50">
+            {{ wallet.description }}
+        </div>
+        <div class="wallet_date" fxFlexOffset="20" fxFlex="10">
+            Создан: {{ wallet.dateCreated | date:'longDate' }}
+        </div>
+    </div>
 
-<button mat-raised-button color="primary" (click)="createWallet()">
-    Добавить
-</button>
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="createWallet()"
+        class="wallet_button"
+        fxFlex="190px"
+    >
+        <i class="material-icons">add</i>
+    </button>
+</div>

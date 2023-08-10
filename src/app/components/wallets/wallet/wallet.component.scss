@@ -1,0 +1,57 @@
+@use '/src/styles/theme.scss' as theme;
+
+:host {
+    margin: 20px 5%;
+    display: block;
+    height: 80%;
+}
+
+.wallet {
+    height: 190px;
+    padding: 5px;
+    box-shadow: 10px 5px 5px theme.$green-color-700;
+    transition: .3s;
+    background: theme.$green-color;
+    @include theme.purple-color-max;
+    border-radius: 7px;
+    margin-bottom: 20px;
+
+    &_button {
+        height: 190px;
+        border: 5px solid theme.$purple-color-400;
+        border-style: dashed;
+        border-radius: 7px;
+    }
+
+    &:hover {
+        background: theme.$green-color-400;
+        cursor: pointer;
+    }
+
+    & div {
+        height: 30px;
+    }
+
+    &_title {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    &_balance {
+        direction: rtl;
+        font-style: italic;
+    }
+
+    &_description {
+        font-size: 12px;
+    }
+
+    &_date {
+        text-align: right;
+        font-size: 13px;
+    }
+}
+
+.mat-mdc-raised-button.mat-primary {
+    @include theme.purple-background;
+}

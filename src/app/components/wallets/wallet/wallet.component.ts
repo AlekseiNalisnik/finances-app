@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 
-import { WalletDataService } from 'src/app/services/wallet-data.service';
-import { WalletHttpService } from 'src/app/services/wallet-http.service';
+import { WalletDataService } from 'src/app/services/data/wallet-data.service';
+import { WalletHttpService } from 'src/app/services/http/wallet-http.service';
 import { WalletModalComponent } from '../wallet-modal/wallet-modal.component';
 import { WalletDialogRefData } from 'src/app/interfaces/dialog-interface';
 
@@ -13,7 +15,7 @@ import { WalletDialogRefData } from 'src/app/interfaces/dialog-interface';
   standalone: true,
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
-  imports: [CommonModule, DialogModule, MatButtonModule],
+  imports: [CommonModule, DialogModule, MatButtonModule, FlexLayoutModule, MatIconModule],
   providers: [WalletDataService, WalletHttpService],
 })
 export class WalletComponent implements OnInit {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LoginDto, RegisterDto } from '../interfaces/auth-interface';
+import { LoginDto, RegisterDto } from '../../interfaces/auth-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,12 @@ export class AuthHttpService {
   
   constructor(private http: HttpClient) {}
 
-  public login(loginDto: LoginDto): Observable<string> {
-    return this.http.post(this.authPath + '/auth', { ...loginDto }, { responseType: 'text' });
+  public login(loginDto: LoginDto): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(this.authPath + '/auth', { ...loginDto });
   }
 
-  public register(registerDto: RegisterDto): Observable<string> {
-    return this.http.post(this.authPath + '/registration', { ...registerDto }, { responseType: 'text' });
+  public register(registerDto: RegisterDto): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(this.authPath + '/registration', { ...registerDto });
   }
 
   public logout(): Observable<void> {

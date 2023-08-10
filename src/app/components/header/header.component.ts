@@ -1,27 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
-import { UserHttpService } from 'src/app/services/user-http.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserHttpService } from 'src/app/services/http/user-http.service';
+import { UserDataService } from 'src/app/services/data/user-data.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
-  providers: [UserService, UserHttpService],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
+  providers: [UserDataService, UserHttpService],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    public readonly userService: UserService,
+    public readonly userDataService: UserDataService,
+    public readonly authService: AuthService,
   ) {}
 
   public ngOnInit(): void {
     this.getUserProfile();
   }
 
+  public logout(): void {
+    this.authService.logout();
+  }
+
   private getUserProfile(): void {
-    this.userService.getUserProfile();
+    this.authService.isLoggedIn.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.userDataService.getUserProfile();
+      }
+    });
   }
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
-import { UserHttpService } from './user-http.service';
-import { User } from '../interfaces/user-interface';
+import { UserHttpService } from '../http/user-http.service';
+import { User } from '../../interfaces/user-interface';
 
 @Injectable()
-export class UserService {
+export class UserDataService {
     private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
     public getUser(): Observable<User | null> {

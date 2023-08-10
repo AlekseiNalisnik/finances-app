@@ -1,9 +1,16 @@
 @use '@angular/material' as mat;
 
 $green-palette: mat.define-palette(mat.$green-palette, 300);
+$green-palette-400: mat.define-palette(mat.$green-palette, 400);
+$green-palette-700: mat.define-palette(mat.$green-palette, 700);
 $purple-palette: mat.define-palette(mat.$purple-palette, 100);
 $purple-palette-400: mat.define-palette(mat.$purple-palette, 400);
 $purple-palette-900: mat.define-palette(mat.$purple-palette, 900);
+
+$purple-color-400: mat.get-color-from-palette($purple-palette-400);
+$green-color: mat.get-color-from-palette($green-palette);
+$green-color-400: mat.get-color-from-palette($green-palette-400);
+$green-color-700: mat.get-color-from-palette($green-palette-700);
 
 @mixin green-background {
     background-color: mat.get-color-from-palette($green-palette);
