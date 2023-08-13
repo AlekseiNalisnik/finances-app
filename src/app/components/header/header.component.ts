@@ -6,11 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserHttpService } from 'src/app/services/http/user-http.service';
 import { UserDataService } from 'src/app/services/data/user-data.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   providers: [UserDataService, UserHttpService],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']

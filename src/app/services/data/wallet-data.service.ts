@@ -54,6 +54,7 @@ export class WalletDataService {
     this.walletHttpService.editWallet(wallet).pipe(
       tap(() => {
         this.wallets.next([...this.wallets.value, { ...wallet }]);
+        this.wallet.next({ ...this.wallet.value, ...wallet });
       }),
     ).subscribe();
   }
@@ -62,6 +63,7 @@ export class WalletDataService {
     this.walletHttpService.deleteWallet(id).pipe(
       tap(() => {
         this.wallets.next([...this.wallets.value.filter(({ id: walletId }) => id !== walletId)]);
+        this.wallet.next(null);
         this.router.navigateByUrl('/wallets');
       }),
     ).subscribe();

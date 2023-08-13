@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, JsonPipe, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
+
 import { WalletDataService } from 'src/app/services/data/wallet-data.service';
 import { Wallet } from 'src/app/interfaces/wallet-interface';
 import { WalletModalComponent } from '../wallet-modal/wallet-modal.component';
+import { TransactionComponent } from '../../transactions/transaction/transaction.component';
 
 @Component({
   selector: 'app-wallet-card',
@@ -24,21 +26,15 @@ import { WalletModalComponent } from '../wallet-modal/wallet-modal.component';
     MatIconModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    FormsModule,
     ReactiveFormsModule,
-    NgIf,
-    JsonPipe,
     MatNativeDateModule,
     DialogModule,
+    TransactionComponent,
   ],
   templateUrl: './wallet-card.component.html',
   styleUrls: ['./wallet-card.component.scss']
 })
 export class WalletCardComponent implements OnInit {
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
   wallet: Wallet | null = null;
 
   constructor(
@@ -56,15 +52,17 @@ export class WalletCardComponent implements OnInit {
   }
 
   public editWallet(): void {
-    const dialogRef = this.dialog.open(WalletModalComponent, {
+    const dialogRef = this.dialog.open<Wallet>(WalletModalComponent, {
       data: {
         type: "edit",
         data: this.wallet,
       },
     });
 
-    dialogRef.closed.subscribe((wallet: any) => {
-      this.walletDataService.editWallet(wallet);
+    dialogRef.closed.subscribe((wallet: Wallet | undefined) => {
+      if (wallet) {
+        this.walletDataService.editWallet(wallet);
+      }
     });
   }
 

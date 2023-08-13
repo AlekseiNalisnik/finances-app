@@ -28,12 +28,14 @@ export class WalletComponent implements OnInit {
   }
 
   public createWallet(): void {
-    const dialogRef = this.dialog.open(WalletModalComponent, {
+    const dialogRef = this.dialog.open<WalletDialogRefData>(WalletModalComponent, {
       data: { type: "create" },
     });
 
-    dialogRef.closed.subscribe((wallet: any) => {
-      this.walletDataService.createWallet(wallet);
+    dialogRef.closed.subscribe((wallet: WalletDialogRefData | undefined) => {
+      if (wallet) {
+        this.walletDataService.createWallet(wallet);
+      }
     });
   }
 

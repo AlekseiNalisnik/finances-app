@@ -1,13 +1,13 @@
+import { Transaction } from "./transaction-interface";
 import { Wallet } from "./wallet-interface";
 
-export interface WalletDialogData {
+interface DialogData<T> {
     type: "create" | "edit";
-    data?: Wallet;
+    data?: T;
 }
 
-export interface WalletDialogRefData {
-    id?: string;
-    name: string;
-    balance: string;
-    description: string;
-}
+export interface WalletDialogData extends DialogData<Wallet> {}
+export interface TransactionDialogData extends DialogData<Transaction> {}
+
+export interface WalletDialogRefData extends Partial<Wallet> {}
+export interface TransactionDialogRefData extends Partial<Transaction> {}

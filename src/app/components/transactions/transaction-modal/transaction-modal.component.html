@@ -1,0 +1,54 @@
+<h1>
+    {{ data.type == "create" ? "Создание" : "Редактирование" }} транзакции
+</h1>
+
+<form class="transaction-modal-container" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Вид средств</mat-label>
+        <mat-select formControlName="paymentType">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Назначение</mat-label>
+        <mat-select formControlName="purpose">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="transaction-modal-container_place">
+        <mat-label>Место оплаты</mat-label>
+        <input formControlName="place" matInput placeholder="Введите место оплаты...">
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" class="transaction-modal-container_date">
+        <mat-label>Дата</mat-label>
+        <input formControlName="date" matInput [matDatepicker]="picker">
+        <mat-hint><em>Формат:</em> День.Месяц.Год</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="wallet-modal-container_price">
+        <mat-label>Сумма</mat-label>
+        <input formControlName="price" matInput placeholder="Введите сумму покупки..." type="number" />
+    </mat-form-field>
+</form>
+
+<button
+    [disabled]="form.invalid"
+    mat-raised-button
+    color="primary"
+    class="transaction-button"
+    (click)="onSubmit()"
+>
+    {{ data.type == "create" ? "Создать" : "Редактировать" }}
+</button>

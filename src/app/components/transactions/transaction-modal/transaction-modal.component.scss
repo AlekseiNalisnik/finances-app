@@ -1,0 +1,63 @@
+@use '/src/styles/theme' as theme;
+
+:host {
+    display: block;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 450px;
+    height: 335px;
+
+    ::ng-deep {
+        .mdc-notched-outline {
+            &__leading, &__notch, &__trailing {
+                @include theme.purple-border;
+            }
+        }
+    
+        .mat-mdc-select-value {
+            color: #000;
+        }
+    
+        .mat-mdc-select-arrow svg, .mat-mdc-icon-button svg {
+            @include theme.purple-color;
+        }
+
+        .mat-mdc-raised-button:disabled {
+            color: #666666;
+            background-color: #cccccc;
+        }
+
+        mat-label {
+            @include theme.purple-color;
+        }
+    }
+}
+
+::ng-deep {
+    .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+        @include theme.green-background;
+    }
+}
+
+.transaction-modal-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    input {
+        color: #000;
+    }
+
+    &_place {
+        width: 100%;
+    }
+
+    &_date {
+        width: 50%;
+    }
+}
+
+.transaction-button {
+    margin-top: 10px;
+}

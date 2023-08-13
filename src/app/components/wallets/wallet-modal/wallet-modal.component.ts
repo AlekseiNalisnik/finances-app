@@ -33,18 +33,23 @@ export class WalletModalComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.walletModalForm = new FormGroup({
-      name: new FormControl(this.data?.data?.name || '', Validators.required),
-      balance: new FormControl(this.data?.data?.balance || 0, Validators.required),
-      description: new FormControl(this.data?.data?.description || '', Validators.required),
-    });
+    this.initForm();
   }
 
   public onSubmit(): void {
     this.dialogRef.close({
+      ...this.data?.data,
       name: this.walletModalForm.get('name')!.value,
       balance: this.walletModalForm.get('balance')!.value,
       description: this.walletModalForm.get('description')!.value,
+    });
+  }
+
+  private initForm(): void {
+    this.walletModalForm = new FormGroup({
+      name: new FormControl(this.data?.data?.name || '', Validators.required),
+      balance: new FormControl(this.data?.data?.balance || 0, Validators.required),
+      description: new FormControl(this.data?.data?.description || '', Validators.required),
     });
   }
 }
