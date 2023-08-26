@@ -29,70 +29,74 @@
     </button>
 </div>
 
-<div
-    class="card-transactions"
-    fxLayout="column"
-    fxLayoutAlign="center center"
->
+<div *ngFor="let transaction of transactions">
     <div
-        class="card-transactions_date"
-        fxLayout="row"
-        fxLayoutAlign="space-between center"
+        class="card-transactions"
+        fxLayout="column"
+        fxLayoutAlign="center center"
     >
-        <span class="card-transactions_date-text">
-            transactionGroup.date | date:'long'
-        </span>
-
-        <button
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
+        <div
+            class="card-transactions_date"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
         >
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editTransaction()">
-                <span>Редактировать</span>
+            <span class="card-transactions_date-text">
+                {{ transaction.dateCreated | date:'long' }}
+            </span>
+    
+            <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+            >
+                <mat-icon>more_vert</mat-icon>
             </button>
-            <button mat-menu-item (click)="removeTransaction('123')">
-                <span>Удалить</span>
-            </button>
-        </mat-menu>
-    </div>
-
-    <div fxLayout="row" class="transaction">
-        <div fxFlex="14" fxLayoutAlign="center center">
-            <img src="/assets/img/red_arrow.png" class="transaction_icon transaction_icon__green" />
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editTransaction(transaction.id)">
+                    <span>Редактировать</span>
+                </button>
+                <button mat-menu-item (click)="removeTransaction('123')">
+                    <span>Удалить</span>
+                </button>
+            </mat-menu>
         </div>
 
-        <div fxLayout="column" fxFlex="50" fxLayoutGap="7px" class="transaction_block-1">
-            <div class="transaction_total-amount transaction_total-amount__red">
-                transaction.totalAmount
+        TODO: НЕОБХОДИМО ДОБАВИТЬ ОПИСАНИЕ (МБ СДЕЛАТЬ СКРЫВАЮЩУЮСЯ ВЫПАДАШКУ)
+    
+        <div fxLayout="row" class="transaction">
+            <div fxFlex="14" fxLayoutAlign="center center">
+                <img src="/assets/img/red_arrow.png" class="transaction_icon transaction_icon__green" />
             </div>
-
-            <div class="transaction_payment-type">
-                transaction.paymentType
-            </div>
-
-            <div class="transaction_place">
-                transaction.place
-            </div>
-        </div>
-
-        <div fxLayout="column" fxFlex="36" fxLayoutGap="7px" class="transaction_block-2">
-            <div class="transaction_purpose">
-                transaction.purpose
-            </div>
-
-            <div class="transaction_time" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="7px">
-                <mat-icon class="transaction_time-icon">message</mat-icon>
-
-                <div>
-                    transaction.time
+    
+            <div fxLayout="column" fxFlex="50" fxLayoutGap="7px" class="transaction_block-1">
+                <div class="transaction_total-amount transaction_total-amount__red">
+                    {{ transaction.price }}
+                </div>
+    
+                <div class="transaction_payment-type">
+                    {{ transaction.paymentType }}
+                </div>
+    
+                <div class="transaction_place">
+                    {{ transaction.purchasePlace }}
                 </div>
             </div>
-
-            <div class="transaction_price transaction_price__red">
-                transaction.price
+    
+            <div fxLayout="column" fxFlex="36" fxLayoutGap="7px" class="transaction_block-2">
+                <div class="transaction_purpose">
+                    {{ transaction.purpose }}
+                </div>
+    
+                <div class="transaction_time" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="7px">
+                    <mat-icon class="transaction_time-icon">message</mat-icon>
+    
+                    <div>
+                        {{ transaction.dateCreated }}
+                    </div>
+                </div>
+    
+                <div class="transaction_price transaction_price__red">
+                    {{ transaction.price }}
+                </div>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
     border-radius: 8px;
     padding: 8px 16px;
     width: 450px;
-    height: 335px;
+    height: 415px;
 
     ::ng-deep {
         .mdc-notched-outline {
@@ -34,12 +34,6 @@
     }
 }
 
-::ng-deep {
-    .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
-        @include theme.green-background;
-    }
-}
-
 .transaction-modal-container {
     display: flex;
     justify-content: space-between;
@@ -49,7 +43,7 @@
         color: #000;
     }
 
-    &_place {
+    &_place, &_description {
         width: 100%;
     }
 

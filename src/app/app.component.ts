@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
     <router-outlet></router-outlet>
   `,
   imports: [RouterOutlet, RouterLink, HeaderComponent],
+  styleUrls: ['../styles/material-custom.scss'],
 })
 export class AppComponent {
   title = 'finances-app';

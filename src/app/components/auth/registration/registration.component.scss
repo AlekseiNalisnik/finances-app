@@ -20,7 +20,7 @@ $input-palette: mat.define-palette(mat.$purple-palette, 100);
     color: #fff;
 }
 
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: mat.get-color-from-palette($input-palette);
 }
 

@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Transaction } from 'src/app/interfaces/transaction-interface';
+import { Transaction, TransactionPurposeDictionary } from 'src/app/interfaces/transaction-interface';
 
 @Injectable()
 export class TransactionHttpService {
   private readonly transactionUrl = '/api/finances/secured/transactions';
+  private readonly transactionDictionaryUrl = '/api/finances/secured/dictionaries/transaction-purpose';
 
   constructor(private http: HttpClient) { }
 
@@ -28,5 +29,9 @@ export class TransactionHttpService {
 
   public deleteTransaction(id: string): Observable<void> {
     return this.http.delete<void>(`${this.transactionUrl}/delete/${id}`);
+  }
+
+  public getTransactionPurposeDictionaries(): Observable<TransactionPurposeDictionary[]> {
+    return this.http.get<TransactionPurposeDictionary[]>(this.transactionDictionaryUrl);
   }
 }

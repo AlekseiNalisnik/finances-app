@@ -33,12 +33,6 @@ import { TransactionDialogData, TransactionDialogRefData } from 'src/app/interfa
 export class TransactionModalComponent {
   public form!: FormGroup;
 
-  foods: any[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-
   constructor(
     public readonly dialogRef: DialogRef<TransactionDialogRefData>,
     @Inject(DIALOG_DATA) public readonly data: TransactionDialogData,
@@ -57,11 +51,12 @@ export class TransactionModalComponent {
 
   private initForm(): void {
     this.form = new FormGroup({
-      paymentType: new FormControl(this.data?.data?.paymentType || null, Validators.required),
-      place: new FormControl(this.data?.data?.place || null, Validators.required),
-      purpose: new FormControl(this.data?.data?.purpose || '', Validators.required),
-      date: new FormControl(this.data?.data?.date || null, Validators.required),
-      price: new FormControl(this.data?.data?.price || 0, Validators.required),
+      paymentType: new FormControl(this.data?.data?.data?.paymentType || null, Validators.required),
+      purchasePlace: new FormControl(this.data?.data?.data?.purchasePlace || null, Validators.required),
+      purpose: new FormControl(this.data?.data?.data?.purpose || '', Validators.required),
+      dateCreated: new FormControl(this.data?.data?.data?.dateCreated || null, Validators.required),
+      price: new FormControl(this.data?.data?.data?.price || 0, Validators.required),
+      description: new FormControl(this.data?.data?.data?.description || ''),
     });
   }
 }

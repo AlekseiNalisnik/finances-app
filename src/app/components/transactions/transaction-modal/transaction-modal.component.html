@@ -6,8 +6,8 @@
     <mat-form-field appearance="outline">
         <mat-label>Вид средств</mat-label>
         <mat-select formControlName="paymentType">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+            <mat-option *ngFor="let paymentType of data.data.dictionaries.paymentType" [value]="paymentType.value">
+                {{ paymentType.viewValue }}
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -15,27 +15,29 @@
     <mat-form-field appearance="outline">
         <mat-label>Назначение</mat-label>
         <mat-select formControlName="purpose">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+            <mat-option *ngFor="let purpose of data.data.dictionaries.purpose" [value]="purpose.code">
+                {{ purpose.description }}
             </mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="transaction-modal-container_place">
-        <mat-label>Место оплаты</mat-label>
-        <input formControlName="place" matInput placeholder="Введите место оплаты...">
+        <mat-label>Место покупки</mat-label>
+        <input formControlName="purchasePlace" matInput placeholder="Введите место покупки...">
     </mat-form-field>
 
-
+    <mat-form-field appearance="outline" class="transaction-modal-container_description">
+        <mat-label>Краткое описание</mat-label>
+        <input formControlName="description" matInput placeholder="Введите краткое описание...">
+    </mat-form-field>
 
     <mat-form-field appearance="outline" class="transaction-modal-container_date">
         <mat-label>Дата</mat-label>
-        <input formControlName="date" matInput [matDatepicker]="picker">
+        <input formControlName="dateCreated" matInput [matDatepicker]="picker">
         <mat-hint><em>Формат:</em> День.Месяц.Год</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
 
     <mat-form-field appearance="outline" class="wallet-modal-container_price">
         <mat-label>Сумма</mat-label>

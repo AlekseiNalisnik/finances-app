@@ -13,7 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TransactionModalComponent } from '../transaction-modal/transaction-modal.component';
 import { TransactionDataService } from 'src/app/services/data/transaction-data.service';
 import { TransactionHttpService } from 'src/app/services/http/transaction-http.service';
-import { Transaction } from 'src/app/interfaces/transaction-interface';
+import { Transaction, TransactionPaymentTypeDictionary, TransactionPurposeDictionary } from 'src/app/interfaces/transaction-interface';
 
 @Component({
   selector: 'app-transaction',
@@ -46,6 +46,8 @@ export class TransactionComponent implements OnInit {
     end: new FormControl<Date | null>(null),
   });
   transactions: Transaction[] = [];
+  transactionPurposeDictionaries: TransactionPurposeDictionary[] = [];
+  transactionPaymentTypeDictionaries: TransactionPaymentTypeDictionary[] = [];
 
   constructor(
     private readonly transactionDataService: TransactionDataService,
@@ -54,12 +56,19 @@ export class TransactionComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getTransactions();
+    this.getDictionaries();
   }
 
   public createTransaction(): void {
     const dialogRef = this.dialog.open<Transaction>(TransactionModalComponent, {
       data: {
         type: "create",
+        data: {
+          dictionaries: {
+            purpose: this.transactionPurposeDictionaries,
+            paymentType: this.transactionPaymentTypeDictionaries,
+          },
+        },
       },
     });
 
@@ -70,11 +79,17 @@ export class TransactionComponent implements OnInit {
     });
   }
 
-  public editTransaction(): void {
+  public editTransaction(id: string): void {
     const dialogRef = this.dialog.open<Transaction>(TransactionModalComponent, {
       data: {
         type: "edit",
-        data: null,
+        data: {
+          dictionaries: {
+            purpose: this.transactionPurposeDictionaries,
+            paymentType: this.transactionPaymentTypeDictionaries,
+          },
+          data: this.transactions.find(({ id: transactionId }) => transactionId === id),
+        },
       },
     });
 
@@ -89,12 +104,23 @@ export class TransactionComponent implements OnInit {
     this.transactionDataService.deleteTransaction(id);
   }
 
-  public getTransactions(): void {
+  private getTransactions(): void {
     this.transactionDataService.getTransactions();
 
     this.transactionDataService.getTransactionList()
       .subscribe((transactions: Transaction[]) => {
         this.transactions = transactions;
-      })
+      });
+  }
+
+  private getDictionaries(): void {
+    this.transactionDataService.getTransactionPurposeDictionaries();
+
+    this.transactionDataService.getTransactionPurposeDictionaryList()
+      .subscribe((transactionPurposeDictionaries: TransactionPurposeDictionary[]) => {
+        this.transactionPurposeDictionaries = transactionPurposeDictionaries;
+      });
+
+    this.transactionPaymentTypeDictionaries = this.transactionDataService.getTransactionPaymentTypeDictionaryList();
   }
 }

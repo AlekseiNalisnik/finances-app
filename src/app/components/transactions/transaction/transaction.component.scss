@@ -1,21 +1,8 @@
 @use '/src/styles/theme.scss' as theme;
 
-::ng-deep {
+:host ::ng-deep {
     ::placeholder {
         color: #fff;
-    }
-
-    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-        background-color: theme.$green-color-400;
-    }
-
-    .mat-datepicker-content {
-        background-color: theme.$green-color;
-    }
-
-    .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>
-    .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-        @include theme.purple-background;
     }
 
     mat-label {
