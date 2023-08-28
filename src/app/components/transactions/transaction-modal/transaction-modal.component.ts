@@ -44,7 +44,7 @@ export class TransactionModalComponent {
 
   public onSubmit(): void {
     this.dialogRef.close({
-      ...this.data?.data,
+      ...this.data?.data?.data,
       ...this.form.value,
     });
   }
@@ -53,7 +53,7 @@ export class TransactionModalComponent {
     this.form = new FormGroup({
       paymentType: new FormControl(this.data?.data?.data?.paymentType || null, Validators.required),
       purchasePlace: new FormControl(this.data?.data?.data?.purchasePlace || null, Validators.required),
-      purpose: new FormControl(this.data?.data?.data?.purpose || '', Validators.required),
+      purposeId: new FormControl(this.data?.data?.data?.purposeId || '', Validators.required),
       dateCreated: new FormControl(this.data?.data?.data?.dateCreated || null, Validators.required),
       price: new FormControl(this.data?.data?.data?.price || 0, Validators.required),
       description: new FormControl(this.data?.data?.data?.description || ''),

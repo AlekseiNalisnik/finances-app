@@ -37,16 +37,16 @@ export class TransactionDataService {
     private readonly transactionHttpService: TransactionHttpService,
   ) { }
 
-  public getTransactions(): void {
-    this.transactionHttpService.getTransactions().pipe(
+  public getTransactions(walletId: string): void {
+    this.transactionHttpService.getTransactions(walletId).pipe(
       tap((transactions: Transaction[]) => {
         this.transactions.next(transactions);
       })
     ).subscribe();
   }
 
-  public createTransaction(transaction: Transaction): void {
-    this.transactionHttpService.createTransaction(transaction).pipe(
+  public createTransaction(walletId: string, transaction: Transaction): void {
+    this.transactionHttpService.createTransaction(walletId, transaction).pipe(
       tap((createdTransaction) => {
         this.transactions.next([...this.transactions.value, { ...createdTransaction }]);
       }),
@@ -61,8 +61,8 @@ export class TransactionDataService {
     ).subscribe();
   }
 
-  public deleteTransaction(id: string): void {
-    this.transactionHttpService.deleteTransaction(id).pipe(
+  public deleteTransaction(walletId: string, id: string): void {
+    this.transactionHttpService.deleteTransaction(walletId, id).pipe(
       tap(() => {
         this.transactions.next(
           [...this.transactions.value.filter(({ id: transactionId }) => id !== transactionId)]

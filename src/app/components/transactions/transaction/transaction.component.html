@@ -51,10 +51,10 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editTransaction(transaction.id)">
+                <button mat-menu-item (click)="editTransaction(transaction.id!)">
                     <span>Редактировать</span>
                 </button>
-                <button mat-menu-item (click)="removeTransaction('123')">
+                <button mat-menu-item (click)="removeTransaction(transaction.id!)">
                     <span>Удалить</span>
                 </button>
             </mat-menu>
@@ -83,7 +83,7 @@
     
             <div fxLayout="column" fxFlex="36" fxLayoutGap="7px" class="transaction_block-2">
                 <div class="transaction_purpose">
-                    {{ transaction.purpose }}
+                    {{ transaction.purposeId }}
                 </div>
     
                 <div class="transaction_time" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="7px">

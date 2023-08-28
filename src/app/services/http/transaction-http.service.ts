@@ -11,24 +11,20 @@ export class TransactionHttpService {
 
   constructor(private http: HttpClient) { }
 
-  public getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.transactionUrl);
+  public getTransactions(walletId: string): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.transactionUrl}/${walletId}/list`);
   }
 
-  public getTransactionById(id: string): Observable<Transaction> {
-    return this.http.get<Transaction>(`${this.transactionUrl}/${id}`);
-  }
-
-  public createTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(`${this.transactionUrl}/create`, transaction);
+  public createTransaction(walletId: string, transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(`${this.transactionUrl}/${walletId}/create`, transaction);
   }
 
   public editTransaction(transaction: Transaction): Observable<void> {
     return this.http.put<void>(`${this.transactionUrl}/update`, transaction);
   }
 
-  public deleteTransaction(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.transactionUrl}/delete/${id}`);
+  public deleteTransaction(walletId: string, id: string): Observable<void> {
+    return this.http.delete<void>(`${this.transactionUrl}/${walletId}/delete/${id}`);
   }
 
   public getTransactionPurposeDictionaries(): Observable<TransactionPurposeDictionary[]> {

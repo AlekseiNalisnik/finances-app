@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { ActivatedRoute } from '@angular/router';
 
 import { TransactionModalComponent } from '../transaction-modal/transaction-modal.component';
 import { TransactionDataService } from 'src/app/services/data/transaction-data.service';
@@ -48,15 +49,17 @@ export class TransactionComponent implements OnInit {
   transactions: Transaction[] = [];
   transactionPurposeDictionaries: TransactionPurposeDictionary[] = [];
   transactionPaymentTypeDictionaries: TransactionPaymentTypeDictionary[] = [];
+  private walletId: string | undefined;
 
   constructor(
     private readonly transactionDataService: TransactionDataService,
     private readonly dialog: Dialog,
+    private readonly activatedRoute: ActivatedRoute,
   ) {}
 
   public ngOnInit(): void {
-    this.getTransactions();
     this.getDictionaries();
+    this.getWalletId();
   }
 
   public createTransaction(): void {
@@ -74,7 +77,7 @@ export class TransactionComponent implements OnInit {
 
     dialogRef.closed.subscribe((transaction: Transaction | undefined) => {
       if (transaction) {
-        this.transactionDataService.createTransaction(transaction);
+        this.transactionDataService.createTransaction(this.walletId!, transaction);
       }
     });
   }
@@ -101,11 +104,11 @@ export class TransactionComponent implements OnInit {
   }
 
   public removeTransaction(id: string): void {
-    this.transactionDataService.deleteTransaction(id);
+    this.transactionDataService.deleteTransaction(this.walletId!, id);
   }
 
   private getTransactions(): void {
-    this.transactionDataService.getTransactions();
+    this.transactionDataService.getTransactions(this.walletId!);
 
     this.transactionDataService.getTransactionList()
       .subscribe((transactions: Transaction[]) => {
@@ -122,5 +125,13 @@ export class TransactionComponent implements OnInit {
       });
 
     this.transactionPaymentTypeDictionaries = this.transactionDataService.getTransactionPaymentTypeDictionaryList();
+  }
+
+  private getWalletId(): void {
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.walletId = id;
+
+      this.getTransactions();
+    });
   }
 }

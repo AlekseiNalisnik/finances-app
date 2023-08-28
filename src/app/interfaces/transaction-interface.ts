@@ -1,11 +1,11 @@
 export interface Transaction {
-    id: string;
+    id?: string;
     purchasePlace: string;
     paymentType: string;
-    purpose: number;
     price: number;
     dateCreated: Date;
     description?: string;
+    purposeId: string;
 }
 
 export enum TransactionPaymentType {

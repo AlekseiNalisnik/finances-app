@@ -14,8 +14,8 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Назначение</mat-label>
-        <mat-select formControlName="purpose">
-            <mat-option *ngFor="let purpose of data.data.dictionaries.purpose" [value]="purpose.code">
+        <mat-select formControlName="purposeId">
+            <mat-option *ngFor="let purpose of data.data.dictionaries.purpose" [value]="purpose.id">
                 {{ purpose.description }}
             </mat-option>
         </mat-select>
