@@ -17,7 +17,15 @@
     .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
         @include theme.purple-background;
     }
-    .mdc-list-item__primary-text {
+    .mat-mdc-option .mdc-list-item__primary-text {
         color: #000 !important;
+    }
+
+    // Выпадашка для меню
+    .mat-mdc-menu-panel {
+        background-color: theme.$green-color !important;
+    }
+    .mat-mdc-menu-content, .mat-mdc-menu-content .mat-mdc-menu-item .mdc-list-item__primary-text {
+        color: #fff !important;
     }
 }

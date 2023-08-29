@@ -5,7 +5,12 @@ export interface Transaction {
     price: number;
     dateCreated: Date;
     description?: string;
-    purposeId: string;
+    purposeId?: string;
+    purpose: {
+        id: string;
+        code: number;
+        description: string;
+    };
 }
 
 export enum TransactionPaymentType {

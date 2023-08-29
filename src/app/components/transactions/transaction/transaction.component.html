@@ -41,61 +41,60 @@
             fxLayoutAlign="space-between center"
         >
             <span class="card-transactions_date-text">
-                {{ transaction.dateCreated | date:'long' }}
+                {{ transaction.dateCreated | date:'longDate' }}
             </span>
-    
-            <button
-                mat-icon-button
-                [matMenuTriggerFor]="menu"
-            >
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editTransaction(transaction.id!)">
-                    <span>Редактировать</span>
-                </button>
-                <button mat-menu-item (click)="removeTransaction(transaction.id!)">
-                    <span>Удалить</span>
-                </button>
-            </mat-menu>
         </div>
-
-        TODO: НЕОБХОДИМО ДОБАВИТЬ ОПИСАНИЕ (МБ СДЕЛАТЬ СКРЫВАЮЩУЮСЯ ВЫПАДАШКУ)
     
         <div fxLayout="row" class="transaction">
             <div fxFlex="14" fxLayoutAlign="center center">
-                <img src="/assets/img/red_arrow.png" class="transaction_icon transaction_icon__green" />
+                <img
+                    src="/assets/img/red_arrow.png"
+                    class="transaction_icon"
+                    [ngClass]="{ transaction_icon__green: transaction.price > 0 }"
+                />
             </div>
-    
+            
             <div fxLayout="column" fxFlex="50" fxLayoutGap="7px" class="transaction_block-1">
-                <div class="transaction_total-amount transaction_total-amount__red">
-                    {{ transaction.price }}
+                <div class="transaction_total-amount"  [ngClass]="{ 'transaction_total-amount__red': transaction.price < 0 }">
+                    {{ transaction.price | currency:'RUB' }}
                 </div>
     
                 <div class="transaction_payment-type">
-                    {{ transaction.paymentType }}
+                    {{ getTransactionPaymentType(transaction.paymentType) }}
                 </div>
     
-                <div class="transaction_place">
+                <div class="transaction_place" fxLayoutGap="0px">
                     {{ transaction.purchasePlace }}
+                </div>
+
+                <div class="transaction_description">
+                    {{ transaction.description }}
                 </div>
             </div>
     
-            <div fxLayout="column" fxFlex="36" fxLayoutGap="7px" class="transaction_block-2">
+            <div fxLayout="column" fxLayoutAlign="space-around" fxFlex="36" fxLayoutGap="7px" class="transaction_block-2">
+                <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    class="transaction_button"
+                >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editTransaction(transaction.id!)">
+                        <span>Редактировать</span>
+                    </button>
+                    <button mat-menu-item (click)="removeTransaction(transaction.id!)">
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
+
                 <div class="transaction_purpose">
-                    {{ transaction.purposeId }}
+                    {{ transaction?.purpose?.description }}
                 </div>
     
-                <div class="transaction_time" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="7px">
-                    <mat-icon class="transaction_time-icon">message</mat-icon>
-    
-                    <div>
-                        {{ transaction.dateCreated }}
-                    </div>
-                </div>
-    
-                <div class="transaction_price transaction_price__red">
-                    {{ transaction.price }}
+                <div class="transaction_price" [ngClass]="{ transaction_price__red: transaction.price < 0 }">
+                    {{ transaction.price | currency:'RUB' }}
                 </div>
             </div>
         </div>

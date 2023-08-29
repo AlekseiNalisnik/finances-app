@@ -62,6 +62,10 @@ export class TransactionComponent implements OnInit {
     this.getWalletId();
   }
 
+  public getTransactionPaymentType(paymentType: string): string | undefined {
+    return this.transactionPaymentTypeDictionaries.find(({ value }) => value === paymentType)?.viewValue;
+  }
+
   public createTransaction(): void {
     const dialogRef = this.dialog.open<Transaction>(TransactionModalComponent, {
       data: {
