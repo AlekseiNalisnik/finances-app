@@ -3,7 +3,7 @@ export interface Transaction {
     purchasePlace: string;
     paymentType: string;
     price: number;
-    dateCreated: Date;
+    dateCreated: string;
     description?: string;
     purposeId?: string;
     purpose: {
@@ -11,6 +11,11 @@ export interface Transaction {
         code: number;
         description: string;
     };
+}
+
+export interface TransactionResponse {
+    totalPages: number;
+    transactions: Transaction[];
 }
 
 export enum TransactionPaymentType {
@@ -29,4 +34,14 @@ export interface TransactionPurposeDictionary {
     id: string;
     code: number;
     description: string;
+}
+
+export interface PaginationOptions {
+    pageNumber: number;
+    pageSize: number;
+}
+
+export interface GroupedByDateTransactions {
+    date: string;
+    transactions: Transaction[];
 }

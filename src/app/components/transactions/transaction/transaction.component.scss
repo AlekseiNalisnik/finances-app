@@ -12,6 +12,10 @@
     .mat-mdc-menu-content {
         @include theme.purple-background;
     }
+
+    .mat-mdc-paginator {
+        @include theme.green-background;
+    }
 }
 
 .card-transactions {
@@ -128,4 +132,8 @@
 
 .card-header {
     margin-bottom: 25px;
+}
+
+.paginator {
+    margin-top: 25px;
 }

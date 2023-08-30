@@ -1,8 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Transaction, TransactionPurposeDictionary } from 'src/app/interfaces/transaction-interface';
+import {
+  PaginationOptions,
+  Transaction,
+  TransactionPurposeDictionary,
+  TransactionResponse,
+} from 'src/app/interfaces/transaction-interface';
 
 @Injectable()
 export class TransactionHttpService {
@@ -11,8 +16,12 @@ export class TransactionHttpService {
 
   constructor(private http: HttpClient) { }
 
-  public getTransactions(walletId: string): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.transactionUrl}/${walletId}/list`);
+  public getTransactions(walletId: string, { pageNumber, pageSize }: PaginationOptions): Observable<TransactionResponse> {
+    let params = new HttpParams();
+    params = params.append("pageNumber", pageNumber);
+    params = params.append("pageSize", pageSize);
+
+    return this.http.get<TransactionResponse>(`${this.transactionUrl}/${walletId}/list`, { params });
   }
 
   public createTransaction(walletId: string, transaction: Transaction): Observable<Transaction> {

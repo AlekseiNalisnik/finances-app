@@ -10,11 +10,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
+import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 import { TransactionModalComponent } from '../transaction-modal/transaction-modal.component';
 import { TransactionDataService } from 'src/app/services/data/transaction-data.service';
 import { TransactionHttpService } from 'src/app/services/http/transaction-http.service';
-import { Transaction, TransactionPaymentTypeDictionary, TransactionPurposeDictionary } from 'src/app/interfaces/transaction-interface';
+import {
+  GroupedByDateTransactions,
+  Transaction,
+  TransactionPaymentTypeDictionary, 
+  TransactionPurposeDictionary,
+} from 'src/app/interfaces/transaction-interface';
+import { PaginatorIntl } from 'src/app/utils/paginator-intl.service';
 
 @Component({
   selector: 'app-transaction',
@@ -35,10 +42,12 @@ import { Transaction, TransactionPaymentTypeDictionary, TransactionPurposeDictio
     DialogModule,
     TransactionComponent,
     MatMenuModule,
+    MatPaginatorModule,
   ],
   providers: [
     TransactionDataService,
     TransactionHttpService,
+    { provide: MatPaginatorIntl, useClass: PaginatorIntl },
   ],
 })
 export class TransactionComponent implements OnInit {
@@ -49,6 +58,8 @@ export class TransactionComponent implements OnInit {
   transactions: Transaction[] = [];
   transactionPurposeDictionaries: TransactionPurposeDictionary[] = [];
   transactionPaymentTypeDictionaries: TransactionPaymentTypeDictionary[] = [];
+  totalPages: number = 0;
+  transactionsGroupedByDate: GroupedByDateTransactions[] = [];
   private walletId: string | undefined;
 
   constructor(
@@ -60,6 +71,10 @@ export class TransactionComponent implements OnInit {
   public ngOnInit(): void {
     this.getDictionaries();
     this.getWalletId();
+  }
+
+  public handlePageEvent({ pageSize, pageIndex }: PageEvent) {
+    this.transactionDataService.setPaginationOptions({ pageNumber: pageIndex, pageSize });
   }
 
   public getTransactionPaymentType(paymentType: string): string | undefined {
@@ -117,6 +132,12 @@ export class TransactionComponent implements OnInit {
     this.transactionDataService.getTransactionList()
       .subscribe((transactions: Transaction[]) => {
         this.transactions = transactions;
+        this.transactionsGroupedByDate = this.transactionDataService.groupTransactionsByDate();
+      });
+
+    this.transactionDataService.getTotalPages()
+      .subscribe((totalPages: number) => {
+        this.totalPages = totalPages;
       });
   }
 

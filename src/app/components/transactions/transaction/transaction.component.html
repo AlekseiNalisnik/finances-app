@@ -15,8 +15,8 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
 
-            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Некорректная начальная дата</mat-error>
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Некорректная конечная дата</mat-error>
         </mat-form-field>
     </div>
 
@@ -29,7 +29,7 @@
     </button>
 </div>
 
-<div *ngFor="let transaction of transactions">
+<div *ngFor="let transactionGrouped of transactionsGroupedByDate">
     <div
         class="card-transactions"
         fxLayout="column"
@@ -41,11 +41,11 @@
             fxLayoutAlign="space-between center"
         >
             <span class="card-transactions_date-text">
-                {{ transaction.dateCreated | date:'longDate' }}
+                {{ transactionGrouped.date | date:'longDate' }}
             </span>
         </div>
     
-        <div fxLayout="row" class="transaction">
+        <div fxLayout="row" class="transaction" *ngFor="let transaction of transactionGrouped.transactions">
             <div fxFlex="14" fxLayoutAlign="center center">
                 <img
                     src="/assets/img/red_arrow.png"
@@ -99,4 +99,13 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="paginator">
+    <mat-paginator
+        [length]="totalPages"
+        (page)="handlePageEvent($event)"
+        [pageSizeOptions]="[10, 25, 100, 250]"
+        aria-label="Выберите страницу"
+    ></mat-paginator>
 </div>
